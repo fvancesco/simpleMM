@@ -18,8 +18,8 @@ cmd:text('Options')
 
 -- Data input settings
 cmd:option('-input_npy','/homedtic/fbarbieri/sergionose/npy/')
-cmd:option('-input_code',464,'464 or 664')
-cmd:option('-feat_size_audio',2048,'The number of audioual features')
+cmd:option('-input_code',434,'434 or 664')
+cmd:option('-feat_size_audio',4096,'The number of audioual features')
 cmd:option('-feat_size_visual',2048,'The number of visual features')
 -- Select model
 cmd:option('-model','tanh','relu or tanh')
@@ -62,7 +62,7 @@ cmd:option('-id', 'idcp', 'an id identifying this run/job. used in cross-val and
 cmd:option('-seed', 123, 'random number generator seed to use')
 cmd:option('-gpuid', 0, 'which gpu to use. -1 = use CPU')
 cmd:option('-verbose',false,'How much info to give')
-cmd:option('-print_every',5,'Print some statistics')
+cmd:option('-print_every',10,'Print some statistics')
 cmd:option('-revert_params',-1,'Reverst parameters if you are doing worse on the validation')
 cmd:text()
 
@@ -170,10 +170,10 @@ local function save_output_vectors(rank)
 
     --save to npy array
     local timestamp = os.clock()
-    local audiofile = opt.output_path .. 'mm_audio_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
+    local audiofile = opt.output_path .. 'mm_' ..  opt.input_code .. '_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
     npy4th.savenpy(audiofile, audio_out)
 
-    local visualfile = opt.output_path .. 'mm_visual_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
+    local visualfile = opt.output_path .. 'mm_' .. opt.input_code .. '_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
     npy4th.savenpy(visualfile, visual_out)
 
     print('A: ' .. audiofile)
