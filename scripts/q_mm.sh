@@ -24,8 +24,8 @@ export LD_PRELOAD="/homedtic/fbarbieri/torch/install/lib/luarocks/rocks/image/1.
 cd /homedtic/fbarbieri/git/simpleMM
 
 #mm twitter
-th train_sergio.lua -input_code 434 -save_output 1 > /homedtic/fbarbieri/logs/mmsergio434 &
-#th train_sergio.lua -input_code 664 -save_output 1 > /homedtic/fbarbieri/logs/mmsergio664 &
+#th train_sergio.lua -input_code 434 -save_output 1 > /homedtic/fbarbieri/logs/mmsergio434 &
+th train_sergio.lua -input_code 664 -save_output 1 -feat_size_visual 200 > /homedtic/fbarbieri/logs/mmsergio664 &
 
 #th classify_imagemusic.lua ../../../imagemusic/cp/0001/model_best.t7 ../../../imagemusic/dataset/finetune/genres/test.ls > /homedtic/fbarbieri/imagemusic/results/classifiy_genres_test.txt &
 #wait
