@@ -22,12 +22,12 @@ cmd:option('-feat_size_audio',2048,'The number of audioual features')
 cmd:option('-feat_size_visual',2048,'The number of visual features')
 -- Select model
 cmd:option('-model','relu','relu or tanh')
-cmd:option('-mapping',-1,'1 map visual to audio, 2 map audio to visual, other map both in a MM space (V1, A2)')
+cmd:option('-mapping',-1,'1 map visual to audio, 2 map audio to visual, other map both in a MM space')
 cmd:option('-crit','cosine','What criterion to use (only cosine so far)')
 cmd:option('-margin',0.5,'Negative samples margin: L = max(0, cos(x1, x2) - margin)')
 cmd:option('-num_layers', 1, 'number of hidden layers')
 cmd:option('-hidden_size',500,'The hidden size of the discriminative layer')
-cmd:option('-output_size',2048,'The dimension of the output vector (shared space)')
+cmd:option('-output_size',200,'The dimension of the output vector (shared space)')
 cmd:option('-k',1,'The slope of sigmoid')
 cmd:option('-scale_output',0,'Whether to add a sigmoid at teh output of the model')
 -- Optimization: General
@@ -135,7 +135,7 @@ collectgarbage()
 local function save_output_vectors(rank)
   protos.model:evaluate()
 
-  datasets = {'train','val','test'}
+  datasets = {'test','val','train'}
   for dataCount = 1, 3 do
     dataset = datasets[dataCount]
     print (dataset)
@@ -147,7 +147,7 @@ local function save_output_vectors(rank)
     elseif dataset == 'test' then
       size = opt.test_size
     else
-      error('error: unknown dataset - ' .. split)
+      error('error: unknown split - ' .. split)
     end
 
     -- initialize one tensor per modality
@@ -156,15 +156,15 @@ local function save_output_vectors(rank)
     i = 1
     for i = 1,size do
       -- forward
-      local data = loader:getOneTensor(i,dataset)
+      local data = loader:getOneTensor(i,'train')
       local input = {}
       table.insert(input,data.audio)
       table.insert(input,data.visual)
       local output = protos.model:forward(input)
       audio_out[i] = output[1]:float()
-      --audio_out[i] = audio_out[i] / audio_out[i]:norm()
+      audio_out[i] = audio_out[i] / audio_out[i]:norm()
       visual_out[i] = output[2]:float()
-      --visual_out[i] = visual_out[i] / visual_out[i]:norm()
+      visual_out[i] = visual_out[i] / visual_out[i]:norm()
     end
 
     --save to npy array
@@ -433,7 +433,7 @@ while true do
         best_combined_rank = combined_rank
 
         -- save output vectors (forward test set)
-        if opt.save_output > 0 and combined_rank < 280 then --iter > 200 then 
+        if opt.save_output > 0 and combined_rank < 270 then --iter > 200 then 
           print('Found better model! Saving npy...')
           save_output_vectors(combined_rank)
         end
