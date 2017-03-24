@@ -17,7 +17,7 @@ cmd:text()
 cmd:text('Options')
 
 -- Data input settings
-cmd:option('-input_npy','/home/fbarbieri/imagemusic/vectors/501-pred_12_MSD-IGT/')
+cmd:option('-input_npy','/homedtic/fbarbieri/sergionose/npy')
 cmd:option('-input_code',464,'464 or 664')
 cmd:option('-feat_size_audio',2048,'The number of audioual features')
 cmd:option('-feat_size_visual',2048,'The number of visual features')
