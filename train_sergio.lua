@@ -25,15 +25,15 @@ cmd:option('-feat_size_visual',2048,'The number of visual features')
 cmd:option('-model','tanh','relu or tanh')
 cmd:option('-mapping',-1,'1 map visual to audio, 2 map audio to visual, other map both in a MM space (V1, A2)')
 cmd:option('-crit','cosine','What criterion to use (only cosine so far)')
-cmd:option('-margin',0.5,'Negative samples margin: L = max(0, cos(x1, x2) - margin)')
+cmd:option('-margin',0.1,'Negative samples margin: L = max(0, cos(x1, x2) - margin)')
 cmd:option('-num_layers', 1, 'number of hidden layers')
-cmd:option('-hidden_size',500,'The hidden size of the discriminative layer')
+cmd:option('-hidden_size',2000,'The hidden size of the discriminative layer')
 cmd:option('-output_size',200,'The dimension of the output vector (shared space)')
 cmd:option('-k',1,'The slope of sigmoid')
 cmd:option('-scale_output',0,'Whether to add a sigmoid at teh output of the model')
 -- Optimization: General
 cmd:option('-max_iters', -1, 'max number of iterations to run for (-1 = run forever)')
-cmd:option('-batch_size',10,'what is the batch size in number of images per batch')
+cmd:option('-batch_size',50,'what is the batch size in number of images per batch')
 cmd:option('-batch_size_real',-1,'real value of the batch with the negative examples')
 cmd:option('-neg_samples',2,'number of negative examples for each good example')
 cmd:option('-grad_clip',0.1,'clip gradients at this value (note should be lower than usual 5 because we normalize grads by both batch and seq_length)')
@@ -434,7 +434,7 @@ while true do
         best_combined_rank = combined_rank
 
         -- save output vectors (forward test set)
-        if opt.save_output > 0 and combined_rank < 280 then --iter > 200 then 
+        if opt.save_output > 0 and combined_rank < 70 then --iter > 200 then 
           print('Found better model! Saving npy...')
           save_output_vectors(combined_rank)
         end
