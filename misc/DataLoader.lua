@@ -19,9 +19,9 @@ function DataLoader:__init(opt)
   print(self.tensor_audio)
 
   self.tensor_visual = {}
-  self.tensor_visual['train'] = npy4th.loadnpy(opt.input_npy .. "train" .. opt.input_code .. ".npy"):cuda()
-  self.tensor_visual['val'] = npy4th.loadnpy(opt.input_npy .. "val" .. opt.input_code .. ".npy"):cuda()
-  self.tensor_visual['test'] = npy4th.loadnpy(opt.input_npy .. "test" .. opt.input_code .. ".npy"):cuda()
+  self.tensor_visual['train'] = npy4th.loadnpy(opt.input_npy .. "train_" .. opt.input_code .. ".npy"):cuda()
+  self.tensor_visual['val'] = npy4th.loadnpy(opt.input_npy .. "val_" .. opt.input_code .. ".npy"):cuda()
+  self.tensor_visual['test'] = npy4th.loadnpy(opt.input_npy .. "test_" .. opt.input_code .. ".npy"):cuda()
   print(self.tensor_visual)
 
   --Initialize indexes 
