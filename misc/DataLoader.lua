@@ -13,15 +13,15 @@ function DataLoader:__init(opt)
   -- open the npy files an load tensors for train, val and test
   self.tensor_audio = {}
   --print('DataLoader loading npy file (audio): ', opt.input_npy_audio)
-  self.tensor_audio['train'] = npy4th.loadnpy(opt.input_npy .. "audio_train"):cuda()
-  self.tensor_audio['val'] = npy4th.loadnpy(opt.input_npy .. "audio_val"):cuda()
-  self.tensor_audio['test'] = npy4th.loadnpy(opt.input_npy .. "audio_test"):cuda()
+  self.tensor_audio['train'] = npy4th.loadnpy(opt.input_npy .. "train_561.npy"):cuda()
+  self.tensor_audio['val'] = npy4th.loadnpy(opt.input_npy .. "val_561.npy"):cuda()
+  self.tensor_audio['test'] = npy4th.loadnpy(opt.input_npy .. "test_561.npy"):cuda()
   print(self.tensor_audio)
 
   self.tensor_visual = {}
-  self.tensor_visual['train'] = npy4th.loadnpy(opt.input_npy .. "visual_train"):cuda()
-  self.tensor_visual['val'] = npy4th.loadnpy(opt.input_npy .. "visual_val"):cuda()
-  self.tensor_visual['test'] = npy4th.loadnpy(opt.input_npy .. "visual_test"):cuda()
+  self.tensor_visual['train'] = npy4th.loadnpy(opt.input_npy .. "train" .. opt.input_code .. ".npy"):cuda()
+  self.tensor_visual['val'] = npy4th.loadnpy(opt.input_npy .. "val" .. opt.input_code .. ".npy"):cuda()
+  self.tensor_visual['test'] = npy4th.loadnpy(opt.input_npy .. "test" .. opt.input_code .. ".npy"):cuda()
   print(self.tensor_visual)
 
   --Initialize indexes 
