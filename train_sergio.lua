@@ -50,7 +50,7 @@ cmd:option('-optim_epsilon',1e-8,'epsilon that goes into denominator for smoothi
 cmd:option('-weight_decay',0,'Weight decay for L2 norm')
 -- Evaluation/Checkpointing
 cmd:option('-train_size', 211475, 'how many users to use for training set')
-cmd:option('-val_size', 500, 'how many users to use for validation set') --26434
+cmd:option('-val_size', 5000, 'how many users to use for validation set') --26434
 cmd:option('-test_size', 64477, 'how many users to use for test set')
 cmd:option('-save_checkpoint_every', -1, 'how often to save a model checkpoint?')
 cmd:option('-checkpoint_path', 'cp/', 'folder to save checkpoints into (empty = this folder)')
@@ -170,7 +170,7 @@ local function save_output_vectors(rank)
 
     --save to npy array
     local timestamp = os.clock()
-    local audiofile = opt.output_path .. 'mm_' ..  opt.input_code .. '_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
+    local audiofile = opt.output_path .. 'mm_' ..  '561' .. '_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
     npy4th.savenpy(audiofile, audio_out)
 
     local visualfile = opt.output_path .. 'mm_' .. opt.input_code .. '_' .. dataset .. '_' .. rank .. '_' .. size .. '_' .. opt.mapping .. '_'.. opt.output_size .. '_' .. opt.learning_rate .. '_' .. timestamp .. '.npy'
